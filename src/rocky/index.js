@@ -13,10 +13,6 @@ rocky.on('minutechange', function() {
   rocky.requestDraw();
 });
 
-// rocky.on('hourchange', function() {
-//   rocky.requestDraw();
-// });
-
 rocky.on('daychange', function() {
   rocky.requestDraw();
 });
@@ -43,24 +39,20 @@ rocky.on('draw', function(event) {
   var minutes = d.getMinutes().toString();
   var seconds = d.getSeconds();
   
-  
-  
+    
   // Quintum display
   var colors = ['#AA00FF', '#00AAFF', '#55FF00', '#FFAA00', '#FF0000']; // violet, blue, green, orange, red
   var quintum = Math.ceil(seconds/12);
   if(quintum < 1) quintum = 1;
 
   for(var i = quintum; i > 0; i--) {
-    var quintumWidth = (w/5) * i; //i == 1 ? w/9 : (w/9)*((i*2)-1);
+    var quintumWidth = (w/5) * i;
     ctx.fillStyle = colors[i - 1];
-    //ctx.strokeStyle = 'black';
-    //ctx.fillRect((w/2) - (quintumWidth/2), h-3, quintumWidth, 3);
     ctx.fillRect(0, h-3, quintumWidth, 3);
-    //ctx.strokeRect(0, h-3, quintumWidth, 3);    
   }  
   
   // Display time
-  ctx.fillStyle = 'white'; //#FFFFAA';
+  ctx.fillStyle = 'white';
   ctx.font = '42px bold numbers Leco-numbers';
   
   if(hours.length === 1) hours = '0' + hours;
@@ -68,16 +60,17 @@ rocky.on('draw', function(event) {
   
   var timeStr = hours + ':' + minutes;
   ctx.fillText(timeStr, w / 2, (h / 2) - 62, w);
-  
-  // Display discordian date
 
+  
   ctx.font = '14px bold Gothic';
 
-  if(d.getDay() === 5) { // For the initiates
+  // For the initiates
+  if(d.getDay() === 5) { 
     ctx.fillStyle = '#55FF00';
     ctx.fillText("Hot Dog Day", w / 2, (h / 2) - 10, w);  
   }
 
+  // Display discordian date
   ctx.fillStyle = 'white';
   var now = new DDate();
   timeStr = "It's %{%A,%nthe %e of %B%}, %Y. %N%nCelebrate %H :D";
@@ -87,15 +80,7 @@ rocky.on('draw', function(event) {
 
 
 
-
-
-
-
-
-
-
-
-
+// JS port of ddate
 // Copypasta'ed from:
 // https://github.com/ishmayeck/node-ddate/blob/master/ddate.js
 
