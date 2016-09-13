@@ -1,12 +1,16 @@
 var rocky = require('rocky');
 
+var quintum, lastQuintum;
+
 rocky.on('secondchange', function() {
   var d = new Date();
   var seconds = d.getSeconds();
-  //console.log(seconds);
-  //if(seconds % 12 === 0) { // doesn't work as intented at the moment
-    rocky.requestDraw();    
-  //}
+  quintum = Math.ceil((seconds + 1)/12);
+  
+  if(quintum != lastQuintum) {
+    rocky.requestDraw();
+    lastQuintum = quintum;
+  }
 });
 
 rocky.on('minutechange', function() {
@@ -39,11 +43,8 @@ rocky.on('draw', function(event) {
   var minutes = d.getMinutes().toString();
   var seconds = d.getSeconds();
   
-    
   // Quintum display
   var colors = ['#AA00FF', '#00AAFF', '#55FF00', '#FFAA00', '#FF0000']; // violet, blue, green, orange, red
-  var quintum = Math.ceil(seconds/12);
-  if(quintum < 1) quintum = 1;
 
   for(var i = quintum; i > 0; i--) {
     var quintumWidth = (w/5) * i;
