@@ -4,9 +4,9 @@ rocky.on('secondchange', function() {
   var d = new Date();
   var seconds = d.getSeconds();
   //console.log(seconds);
-  if(seconds % 12 === 0) {
+  //if(seconds % 12 === 0) { // doesn't work as intented at the moment
     rocky.requestDraw();    
-  }
+  //}
 });
 
 rocky.on('minutechange', function() {
