@@ -51,9 +51,12 @@ rocky.on('draw', function(event) {
   if(quintum < 1) quintum = 1;
 
   for(var i = quintum; i > 0; i--) {
-    var quintumWidth = i == 1 ? w/9 : (w/9)*((i*2)-1);
+    var quintumWidth = (w/5) * i; //i == 1 ? w/9 : (w/9)*((i*2)-1);
     ctx.fillStyle = colors[i - 1];
-    ctx.fillRect((w/2) - (quintumWidth/2), h-3, quintumWidth, 3);
+    //ctx.strokeStyle = 'black';
+    //ctx.fillRect((w/2) - (quintumWidth/2), h-3, quintumWidth, 3);
+    ctx.fillRect(0, h-3, quintumWidth, 3);
+    //ctx.strokeRect(0, h-3, quintumWidth, 3);    
   }  
   
   // Display time
@@ -67,9 +70,15 @@ rocky.on('draw', function(event) {
   ctx.fillText(timeStr, w / 2, (h / 2) - 62, w);
   
   // Display discordian date
-  ctx.fillStyle = 'white'; //#FFFFAA';
+
   ctx.font = '14px bold Gothic';
 
+  if(d.getDay() === 5) { // For the initiates
+    ctx.fillStyle = '#55FF00';
+    ctx.fillText("Hot Dog Day", w / 2, (h / 2) - 10, w);  
+  }
+
+  ctx.fillStyle = 'white';
   var now = new DDate();
   timeStr = "It's %{%A,%nthe %e of %B%}, %Y. %N%nCelebrate %H :D";
   ctx.fillText(now.format(timeStr), w / 2, (h / 2) + 10, w);

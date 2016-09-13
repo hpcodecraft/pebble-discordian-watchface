@@ -2,9 +2,9 @@
     "author": "thesquidpeople@gmail.com",
     "dependencies": {},
     "keywords": [],
-    "name": "hail-eris",
+    "name": "discordian-watchface",
     "pebble": {
-        "displayName": "All Hail Discordia!",
+        "displayName": "Discordian Watchface",
         "enableMultiJS": true,
         "messageKeys": [],
         "projectType": "rocky",
