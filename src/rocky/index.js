@@ -50,6 +50,8 @@ rocky.on('draw', function(event) {
     var quintumWidth = (w/5) * i;
     ctx.fillStyle = colors[i - 1];
     ctx.fillRect(0, h-3, quintumWidth, 3);
+    ctx.fillStyle = 'black';
+    ctx.fillRect(quintumWidth-1, h-3, 1, 3);    
   }  
   
   // Display time
