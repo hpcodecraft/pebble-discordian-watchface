@@ -1,0 +1,24 @@
+{
+    "author": "thesquidpeople@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "hail-eris",
+    "pebble": {
+        "displayName": "All Hail Discordia!",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "rocky",
+        "resources": {
+            "media": []
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "basalt"
+        ],
+        "uuid": "2415c227-d738-44ad-9d38-41aa0752dda3",
+        "watchapp": {
+            "watchface": true
+        }
+    },
+    "version": "1.0.0"
+}
