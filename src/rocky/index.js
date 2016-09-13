@@ -1,16 +1,21 @@
 var rocky = require('rocky');
 
 rocky.on('secondchange', function() {
-  rocky.requestDraw();
+  var d = new Date();
+  var seconds = d.getSeconds();
+  //console.log(seconds);
+  if(seconds % 12 === 0) {
+    rocky.requestDraw();    
+  }
 });
 
 rocky.on('minutechange', function() {
   rocky.requestDraw();
 });
 
-rocky.on('hourchange', function() {
-  rocky.requestDraw();
-});
+// rocky.on('hourchange', function() {
+//   rocky.requestDraw();
+// });
 
 rocky.on('daychange', function() {
   rocky.requestDraw();
@@ -34,24 +39,9 @@ rocky.on('draw', function(event) {
   // Center align the text
   ctx.textAlign = 'center';
   
-  
-  
-  // Display time
-  ctx.fillStyle = '#FFFFAA';
-  ctx.font = '42px bold numbers Leco-numbers';
-  
-  var hours = d.getHours().toString();
-
-  if(hours.length === 1) hours = '0' + hours;
-  
+  var hours = d.getHours().toString();  
   var minutes = d.getMinutes().toString();
-  if(minutes.length === 1) minutes = '0' + minutes;
-  
   var seconds = d.getSeconds();
-  var sep = ':'; //seconds % 2 == 0 ? ':' : ' ';
-
-  var timeStr = hours + sep + minutes;
-  ctx.fillText(timeStr, w / 2, (h / 2) - 62, w);
   
   
   
@@ -61,20 +51,28 @@ rocky.on('draw', function(event) {
   if(quintum < 1) quintum = 1;
 
   for(var i = quintum; i > 0; i--) {
-    var quintumWidth = (w / 6) * i;
+    var quintumWidth = i == 1 ? w/9 : (w/9)*((i*2)-1);
     ctx.fillStyle = colors[i - 1];
-    ctx.fillRect((w/2) - (quintumWidth/2), (h/2), quintumWidth, 5);
-  }
+    ctx.fillRect((w/2) - (quintumWidth/2), h-3, quintumWidth, 3);
+  }  
   
+  // Display time
+  ctx.fillStyle = 'white'; //#FFFFAA';
+  ctx.font = '42px bold numbers Leco-numbers';
+  
+  if(hours.length === 1) hours = '0' + hours;
+  if(minutes.length === 1) minutes = '0' + minutes;
+  
+  var timeStr = hours + ':' + minutes;
+  ctx.fillText(timeStr, w / 2, (h / 2) - 62, w);
   
   // Display discordian date
-  ctx.fillStyle = '#FFFFAA';
+  ctx.fillStyle = 'white'; //#FFFFAA';
   ctx.font = '14px bold Gothic';
 
   var now = new DDate();
-  
   timeStr = "It's %{%A,%nthe %e of %B%}, %Y. %N%nCelebrate %H :D";
-  ctx.fillText(now.format(timeStr), w / 2, (h / 2) + 20, w);
+  ctx.fillText(now.format(timeStr), w / 2, (h / 2) + 10, w);
 });
 
 
@@ -89,7 +87,7 @@ rocky.on('draw', function(event) {
 
 
 
-
+// Copypasta'ed from:
 // https://github.com/ishmayeck/node-ddate/blob/master/ddate.js
 
 var days = [
