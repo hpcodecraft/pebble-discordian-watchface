@@ -13,15 +13,6 @@ rocky.on('secondchange', function() {
   }
 });
 
-rocky.on('minutechange', function() {
-  rocky.requestDraw();
-});
-
-rocky.on('daychange', function() {
-  rocky.requestDraw();
-});
-
-
 rocky.on('draw', function(event) {
   // Get the CanvasRenderingContext2D object
   var ctx = event.context;
@@ -43,6 +34,7 @@ rocky.on('draw', function(event) {
   var minutes = d.getMinutes().toString();
   var seconds = d.getSeconds();
   
+  
   // Quintum display
   var colors = ['#AA00FF', '#00AAFF', '#55FF00', '#FFAA00', '#FF0000']; // violet, blue, green, orange, red
 
@@ -54,6 +46,7 @@ rocky.on('draw', function(event) {
     ctx.fillRect(quintumWidth-1, h-3, 1, 3);    
   }  
   
+  
   // Display time
   ctx.fillStyle = 'white';
   ctx.font = '42px bold numbers Leco-numbers';
@@ -62,22 +55,39 @@ rocky.on('draw', function(event) {
   if(minutes.length === 1) minutes = '0' + minutes;
   
   var timeStr = hours + ':' + minutes;
-  ctx.fillText(timeStr, w / 2, (h / 2) - 62, w);
+  ctx.fillText(timeStr, w / 2, (h / 2) - 66, w);
 
+    
+  // Display Special Day
+  var specialDay = "";
+  var now = new DDate(),
+      nowProps = now.getDate();
   
-  ctx.font = '14px bold Gothic';
-
-  // For the initiates
-  if(d.getDay() === 5) { 
-    ctx.fillStyle = '#55FF00';
-    ctx.fillText("Hot Dog Day", w / 2, (h / 2) - 10, w);  
+  if(nowProps.tibs) {
+    specialDay = "St. Tib's Day";
   }
-
+  
+  else if(nowProps.holyday) {
+    specialDay = nowProps.holyday;
+  }
+  
+  else if(d.getDay() === 5) { 
+    specialDay = "Hot Dog Day";
+  }
+  
+  if(specialDay.length > 0) {
+    ctx.font = '18px bold Gothic';
+    ctx.fillStyle = '#55FF00';
+    ctx.fillText(specialDay, w / 2, (h / 2) - 10, w);    
+  }
+    
+  
   // Display discordian date
+  ctx.font = '14px bold Gothic';
   ctx.fillStyle = 'white';
-  var now = new DDate();
-  timeStr = "It's %{%A,%nthe %e of %B%}, %Y. %N%nCelebrate %H :D";
-  ctx.fillText(now.format(timeStr), w / 2, (h / 2) + 10, w);
+  
+  timeStr = "%{%A%n%e of %B%n%}%Y";
+  ctx.fillText(now.format(timeStr), w / 2, (h / 2) + 20, w - 20);
 });
 
 
@@ -234,7 +244,8 @@ var DDate = function(epooch) {
                         r += '\t';
                         break;
                     case '{':
-                        if(this.tabby) tibsing = ((r += "St. Tib's Day") != Infinity);
+                        // if(this.tabby) tibsing = ((r += "St. Tib's Day") != Infinity);
+                        if(this.tabby) tibsing = ((r += "") != Infinity);
                         break;
                     case '.':
                         r += "I've nothing to say to you. (yet)";

@@ -13,7 +13,8 @@
         },
         "sdkVersion": "3",
         "targetPlatforms": [
-            "basalt"
+            "basalt",
+            "diorite"
         ],
         "uuid": "2415c227-d738-44ad-9d38-41aa0752dda3",
         "watchapp": {
