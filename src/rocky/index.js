@@ -60,15 +60,15 @@ rocky.on('draw', function(event) {
     
   // Display Special Day
   var specialDay = "";
-  var now = new DDate(),
-      nowProps = now.getDate();
+  var dd = new DDate(),
+      ddProps = dd.getDate();
   
-  if(nowProps.tibs) {
+  if(ddProps.tibs) {
     specialDay = "St. Tib's Day";
   }
   
-  else if(nowProps.holyday) {
-    specialDay = nowProps.holyday;
+  else if(ddProps.holyday) {
+    specialDay = ddProps.holyday;
   }
   
   else if(d.getDay() === 5) { 
@@ -87,7 +87,7 @@ rocky.on('draw', function(event) {
   ctx.fillStyle = 'white';
   
   timeStr = "%{%A%n%e of %B%n%}%Y";
-  ctx.fillText(now.format(timeStr), w / 2, (h / 2) + 20, w - 20);
+  ctx.fillText(dd.format(timeStr), w / 2, (h / 2) + 20, w);
 });
 
 
