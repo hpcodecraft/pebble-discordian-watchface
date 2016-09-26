@@ -83,7 +83,7 @@ rocky.on('draw', function(event) {
     
   
   // Display discordian date
-  ctx.font = '14px bold Gothic';
+  ctx.font = '14px Gothic';
   ctx.fillStyle = 'white';
   
   timeStr = "%{%A%n%e of %B%n%}%Y";
